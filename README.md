@@ -13,21 +13,21 @@ SSH_KEY variable must be configured in Gitlab repository
 image: mrbits/hugo-ci
 
 stages:
-    - deploy
+  - deploy
 
 before_script:
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_KEY" > /tmp/key && chmod 0400 /tmp/key && ssh-add /tmp/key
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 production:
-    stage: deploy
-    script:
-        - hugo
-        - rsync -vae ssh public/* user@server:/path/to/hugo/site
-    only:
-        - master
-    environment: production
+  stage: deploy
+  script:
+    - hugo
+    - rsync -vae ssh public/* user@server:/path/to/hugo/site
+  only:
+    - master
+  environment: production
 
 ```
