@@ -1,9 +1,9 @@
-FROM golang:latest
+FROM golang:alpine
 LABEL "Maintainer"="MrBiTs"
 LABEL "e-mail"="mrbits.dcf@gmail.com"
-LABEL "version"="0.3"
+LABEL "version"="0.4"
 
-RUN apt-get update && apt-get -y install openssh-client rsync
+RUN apk add --no-cache git openssh-client rsync
 
 RUN go get -u -v github.com/spf13/hugo
 
