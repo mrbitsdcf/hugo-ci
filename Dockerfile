@@ -1,7 +1,7 @@
 FROM golang:alpine
 LABEL "Maintainer"="MrBiTs"
 LABEL "e-mail"="mrbits.dcf@gmail.com"
-LABEL "version"="0.4"
+LABEL "version"="0.5"
 
 RUN apk add --no-cache git openssh-client rsync
 
